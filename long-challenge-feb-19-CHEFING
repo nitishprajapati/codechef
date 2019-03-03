@@ -1,0 +1,59 @@
+/*
+    2019-02-02 11:46:28
+*/
+
+#include <bits/stdc++.h>
+#include <vector>
+#include <set>
+#include <utility>
+#include <map>
+#include <cmath>
+#include <iomanip>
+#include <string>
+#include <sstream>
+#define ull unsigned long long int
+#define ll long long int
+#define mod 1000000007
+#define fast  ios_base::sync_with_stdio(false);cin.tie(NULL)
+using namespace std;
+
+int main(){
+  int T;
+  int N;
+  string dish;
+  char ingredient;
+  set<char> Set;
+  map<char, int> Map;
+  map<char, int>::iterator mit;
+  int numberOfDishes;
+  int numberOfSpecialIngredients;
+
+  cin>>T;
+  while(T--){
+      cin>>N;
+      numberOfDishes = N;
+      cin.ignore();
+      while(N--){
+          getline(cin, dish);
+          std::istringstream tokenizer(dish);
+          while(tokenizer>>ingredient){
+              Set.insert(ingredient);
+          }
+          for(std::set<char>::iterator it=Set.begin(); it!=Set.end(); it++){
+              Map[*it] = Map[*it] + 1;
+          }
+          Set.clear();
+      }
+
+      numberOfSpecialIngredients = 0;
+      for(mit=Map.begin(); mit!=Map.end(); mit++){
+          if(mit->second == numberOfDishes){
+              numberOfSpecialIngredients++;
+          }
+      }
+
+      cout<<numberOfSpecialIngredients<<'\n';
+      Map.clear();
+  }
+  return 0;
+}
