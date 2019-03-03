@@ -1,0 +1,71 @@
+/*
+
+    02:50 PM 03/02/19
+*/
+
+#include <bits/stdc++.h>
+#include <vector>
+#include <set>
+#include <utility>
+#include <map>
+#include <cmath>
+#include <iomanip>
+#include <string>
+#include <deque>
+#include <queue>
+#define fast ios_base::sync_with_stdio(false); cin.tie(NULL)
+#define ull unsigned long long int
+#define ll long long int
+#define mod 1000000007
+using namespace std;
+
+int main(){
+  int t;
+  int n;
+  int numberOfSoldiers;
+  int liferemaining;
+  set< pair<int/*life remaining*/, int/*maxpower*/> > shieldpower;
+  set< pair<int/*life remaining*/, int/*maxpower*/> >::iterator it;
+  vector<int> attack;
+  vector<int> defence;
+  int a;
+  int d;
+  
+  cin>>t;
+  
+  while(t--){
+      cin>>n;
+      numberOfSoldiers = n;
+      while(n--){
+          cin>>a;
+          attack.push_back(a);
+      }
+      n = numberOfSoldiers;
+      int i = -1;
+      while(n--){
+          cin>>d;
+          defence.push_back(d);
+          i++;
+          liferemaining = d - attack[(i-1==-1)?numberOfSoldiers-1:i-1] - attack[(i+1==numberOfSoldiers)?0:i+1];
+          if(liferemaining>0)
+          shieldpower.insert(make_pair(d,liferemaining));
+      }
+      
+      if(shieldpower.size()<=0){
+          cout<<-1;
+          
+      }
+      else{
+          it = shieldpower.end();
+          it--;
+          cout<<(*it).first;
+          
+      }
+      cout<<'\n';
+      shieldpower.clear();
+      attack.clear();
+      defence.clear();
+      
+  }
+  return 0;
+}
